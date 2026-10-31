@@ -46,7 +46,7 @@ input:focus,textarea:focus{box-shadow:0 0 0 4px #d4a94f33}#tt{animation:tin .3s}
 </style></head><body>
 <div id="app"></div>
 <div id="nb"><b data-n="home"><span>🏠</span>خانه</b><b data-n="sale"><span>🏢</span>فروش</b><b data-n="rent"><span>🔑</span>رهن و اجاره</b><b data-n="req"><span>👥</span>متقاضیان</b><b data-n="bk"><span>☁️</span>پشتیبان</b></div>
-<div id="lk"><svg width="90" height="90" viewBox="0 0 24 24" fill="none" stroke="#d4a94f" stroke-width="1.6"><path d="M3 11l9-8 9 8M5 10v11h14V10M10 21v-6h4v6"/></svg><h1>Melk360</h1><p class="m">بانک جامع فایل‌های املاک</p><button class="pri" id="unl">ورود با اثر انگشت</button><p class="m" style="font-size:12px">طراح: مهندس عظیمی</p></div>
+<div id="lk"><svg width="90" height="90" viewBox="0 0 24 24" fill="none" stroke="#d4a94f" stroke-width="1.6"><path d="M3 11l9-8 9 8M5 10v11h14V10M10 21v-6h4v6"/></svg><h1>Melk360</h1><p class="m">بانک جامع فایل‌های املاک</p><button class="pri" id="unl">ورود با اثر انگشت</button><p class="m" style="font-size:12px">طراح: مهندس عظیمی · نسخه ۱.۳</p></div>
 <script>
 const $=s=>document.querySelector(s),L=localStorage,app=()=>$('#app');
 const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
@@ -136,5 +136,5 @@ await navigator.credentials.get({publicKey:{challenge:ch,allowCredentials:[{type
 async function unlock(){if(await lock()){const l=$('#lk');l.style.opacity=0;setTimeout(()=>l.style.display='none',600)}}
 $('#unl').onclick=unlock;
 document.addEventListener('visibilitychange',()=>{if(document.hidden)L.hid=Date.now();else if(Date.now()-(+L.hid||0)>6e4){$('#lk').style.cssText='display:flex;opacity:1';unlock()}});
-(async()=>{await idb();navigator.storage?.persist?.();if('serviceWorker'in navigator)navigator.serviceWorker.register('sw.js');$('#lk').insertAdjacentHTML('beforeend',sky());render();setTimeout(unlock,1800)})();
+(async()=>{await idb();navigator.storage?.persist?.();if('serviceWorker'in navigator){navigator.serviceWorker.register('sw.js').then(r=>r.update());let rl;navigator.serviceWorker.addEventListener('controllerchange',()=>{if(!rl){rl=1;location.reload()}})}$('#lk').insertAdjacentHTML('beforeend',sky());render();setTimeout(unlock,1800)})();
 </script></body></html>
