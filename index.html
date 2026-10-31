@@ -1,0 +1,117 @@
+<!doctype html><html lang="fa" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><link rel="manifest" href="manifest.json"><meta name="theme-color" content="#0b1424"><link rel="icon" href="icon-192.png"><title>Melk360</title>
+<style>
+:root{--bg:#0b1424;--c:#121e33;--c2:#1a2942;--g:#d4a94f;--t:#eef1f6;--m:#8a97ad;--r:#e5604d}
+*{box-sizing:border-box;margin:0;-webkit-tap-highlight-color:transparent}
+body{background:var(--bg);color:var(--t);font:15px/1.7 Vazirmatn,Tahoma,system-ui,sans-serif;padding:calc(14px + env(safe-area-inset-top)) 14px calc(84px + env(safe-area-inset-bottom))}
+h1{color:var(--g);font-size:26px;letter-spacing:1px}h2{font-size:17px;margin:16px 0 8px}h3{font-size:15px;color:var(--g);margin:14px 0 6px}
+.m,small{color:var(--m)}small{display:block;font-size:12px}
+input,textarea{width:100%;background:var(--c);border:1px solid var(--c2);color:var(--t);border-radius:10px;padding:11px;font:inherit;margin:2px 0 4px}
+input:focus,textarea:focus{outline:2px solid var(--g)}.hid{display:none}.w{font-size:13px;color:var(--g)}
+label.f{display:block;margin-top:10px;color:var(--m);font-size:13px}
+.ch{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0}.ch b{font-weight:400;background:var(--c);border:1px solid var(--c2);border-radius:20px;padding:6px 14px}
+.ch b.on,.fl b.on{background:var(--g);color:#1a1405;border-color:var(--g);font-weight:700}
+button,.add{display:block;width:100%;border:0;border-radius:12px;padding:13px;font:inherit;font-weight:700;background:var(--c2);color:var(--t);margin:8px 0;text-align:center}
+.pri{background:var(--g);color:#1a1405}.dng{background:#3a1b1b;color:var(--r)}
+.bt{display:grid;gap:8px;margin:12px 0}.bt button:first-child{background:var(--g);color:#1a1405}
+.st{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:12px 0}.st div{background:var(--c);border-radius:12px;padding:8px 2px;text-align:center;font-size:11px;color:var(--m)}.st b{display:block;color:var(--g);font-size:20px}
+.cd{display:flex;gap:10px;background:var(--c);border-radius:14px;padding:10px;margin:8px 0;align-items:center}.cd img,.cd i{width:70px;height:70px;border-radius:10px;object-fit:cover;background:var(--c2);font-size:30px;text-align:center;line-height:70px;font-style:normal;flex:none}
+.cd b{display:block}.cd em{color:var(--g);font-style:normal;font-size:13px}
+.warn{background:#3a2e12;color:var(--g);border-radius:12px;padding:10px;margin:10px 0}
+.fl{display:flex;gap:6px;overflow-x:auto;margin:8px 0}.fl b{font-weight:400;white-space:nowrap;background:var(--c);border-radius:20px;padding:5px 13px}
+.pg{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}.pg div{position:relative}.pg img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:10px}.pg u{position:absolute;top:3px;right:3px;background:#000b;border-radius:50%;width:24px;height:24px;text-align:center;text-decoration:none}
+.big{width:100%;border-radius:12px;margin:6px 0}table{width:100%;border-collapse:collapse}td{padding:7px 4px;border-bottom:1px solid var(--c2);vertical-align:top}td:first-child{color:var(--m);width:38%}
+#nb{position:fixed;bottom:0;left:0;right:0;display:flex;background:#0f1a2e;border-top:1px solid var(--c2);padding:6px 0 calc(6px + env(safe-area-inset-bottom))}#nb b{flex:1;text-align:center;font-weight:400;font-size:12px;color:var(--m)}#nb b.on{color:var(--g)}#nb span{display:block;font-size:20px}
+#lk{position:fixed;inset:0;background:var(--bg);z-index:9;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:30px}#lk button{max-width:300px}
+.cr{text-align:center;color:var(--g);margin-top:30px}#tt{position:fixed;bottom:90px;left:50%;transform:translateX(-50%);background:var(--g);color:#1a1405;padding:8px 18px;border-radius:20px;z-index:10}
+</style></head><body>
+<div id="app"></div>
+<div id="nb"><b data-n="home"><span>🏠</span>خانه</b><b data-n="sale"><span>🏢</span>فروش</b><b data-n="rent"><span>🔑</span>رهن و اجاره</b><b data-n="req"><span>👥</span>متقاضیان</b><b data-n="bk"><span>☁️</span>پشتیبان</b></div>
+<div id="lk"><svg width="90" height="90" viewBox="0 0 24 24" fill="none" stroke="#d4a94f" stroke-width="1.6"><path d="M3 11l9-8 9 8M5 10v11h14V10M10 21v-6h4v6"/></svg><h1>Melk360</h1><p class="m">بانک جامع فایل‌های املاک</p><button class="pri" id="unl">ورود با اثر انگشت</button><p class="m" style="font-size:12px">طراح: مهندس عظیمی</p></div>
+<script>
+const $=s=>document.querySelector(s),L=localStorage,app=()=>$('#app');
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const dg=s=>String(s).replace(/[۰-۹]/g,d=>'۰۱۲۳۴۵۶۷۸۹'.indexOf(d)).replace(/[٠-٩]/g,d=>'٠١٢٣٤٥٦٧٨٩'.indexOf(d)),en=s=>dg(s).replace(/[,٬،\s]/g,'');
+const fa=n=>isNaN(+n)||n===''?n:(+n).toLocaleString('fa-IR'),jd=()=>new Date().toLocaleDateString('fa-IR',{year:'numeric',month:'2-digit',day:'2-digit'});
+const U=['','یک','دو','سه','چهار','پنج','شش','هفت','هشت','نه','ده','یازده','دوازده','سیزده','چهارده','پانزده','شانزده','هفده','هجده','نوزده'],TN=['','','بیست','سی','چهل','پنجاه','شصت','هفتاد','هشتاد','نود'],H=['','صد','دویست','سیصد','چهارصد','پانصد','ششصد','هفتصد','هشتصد','نهصد'],S=['','هزار','میلیون','میلیارد','تریلیون'];
+function w3(n){let p=[];if(n>=100){p.push(H[n/100|0]);n%=100}if(n>=20){p.push(TN[n/10|0]);n%=10}if(n)p.push(U[n]);return p.join(' و ')}
+function words(n){if(!n||n<0)return'';let g=[];while(n>0){g.push(n%1000);n=Math.floor(n/1000)}let r=[];for(let i=g.length-1;i>=0;i--)if(g[i])r.push(w3(g[i])+(S[i]?' '+S[i]:''));return r.join(' و ')+' تومان'}
+let db,A=[],V={v:'home'},cur={},PH=[];
+const idb=()=>new Promise(r=>{const q=indexedDB.open('melk360',1);q.onupgradeneeded=()=>q.result.createObjectStore('f',{keyPath:'id'});q.onsuccess=()=>{db=q.result;r()}});
+const all=()=>new Promise(r=>{const q=db.transaction('f').objectStore('f').getAll();q.onsuccess=()=>r(q.result)});
+const put=o=>new Promise(r=>{const t=db.transaction('f','readwrite');t.objectStore('f').put(o);t.oncomplete=r});
+const del=id=>new Promise(r=>{const t=db.transaction('f','readwrite');t.objectStore('f').delete(id);t.oncomplete=r});
+const toast=m=>{const e=document.createElement('div');e.id='tt';e.textContent=m;document.body.append(e);setTimeout(()=>e.remove(),2200)};
+const Y=['ندارد','دارد'],PT=['مسکونی','اداری','تجاری','باغ‌ویلا','زمین','کلنگی','انبار و سوله','صنعتی'],HE=['پکیج و رادیاتور','شوفاژ','بخاری','بدون'],CO=['کولر گازی','اسپلیت','کولر آبی','چیلر','بدون'],EL=['ندارد','۱','۲'],BD=['بدون خواب','۱','۲','۳','۴','۵+'];
+const F={sale:[['ptype','نوع ملک','c',PT],['title','عنوان آگهی','t'],['builder','نام سازنده / مالک','t'],['phone','شماره تماس','p'],['addr','محدوده و آدرس پروژه (مثلاً نوفرهنگ ۴ بلوک ۳ مجتمع نهال)','t'],['postal','کد پستی','p'],['per','تعداد واحد در هر طبقه','c',['۱','۲','۳','۴']],['area','متراژ دقیق (متر)','n'],['pm','قیمت هر متر مربع (تومان)','m'],['total','قیمت کل (تومان)','m'],['bed','تعداد خواب','c',BD],['floor','طبقه','n'],['floors','تعداد کل طبقات','n'],['year','سال ساخت','n'],['prog','درصد پیشرفت پروژه','n'],['frame','نوع اسکلت','c',['فلزی','بتنی','سنتی']],['elev','آسانسور','c',EL],['park','پارکینگ','c',['ندارد','۱','۲','۳']],['stor','انباری','c',Y],['land','موقعیت زمین','c',['دوکله','نبش','پلاک داخل خیابان']],['dir','جهت ساختمان','c',['شمالی','جنوبی','شرقی','غربی']],['wc','سرویس بهداشتی','c',['ایرانی','فرنگی','هر دو']],['heat','گرمایش','c',HE],['cool','سرمایش','c',CO],['doc','نوع سند','c',['تک‌برگ','قولنامه‌ای']],['facade','نوع نما','c',['سنگ','آجر','آجر نسوز','کامپوزیت','ترکیبی']],['style','سبک','c',['مدرن','کلاسیک']],['qual','کیفیت اجرا و ساخت','c',['عالی','خوب','متوسط','ضعیف']],['src','منبع فایل','c',['خودم','همکار']],['from','نام همکار (اگر از همکار است)','t'],['vd','تاریخ بازدید','t'],['note','یادداشت','a']],
+rent:[['ptype','نوع ملک','c',PT],['title','عنوان آگهی','t'],['owner','نام مالک','t'],['phone','شماره تماس','p'],['addr','محدوده و آدرس','t'],['area','متراژ (متر)','n'],['bed','تعداد خواب','c',BD],['year','سال ساخت','n'],['floor','طبقه','n'],['elev','آسانسور','c',EL],['park','پارکینگ','c',['ندارد','۱','۲']],['stor','انباری','c',Y],['cab','نوع کابینت','c',['هایگلاس','پلی‌اورتان','چوب','ام‌دی‌اف معمولی']],['fm','جنس کف','c',['سرامیک','پارکت','موزاییک','سنگ']],['reno','وضعیت بازسازی','c',['بازسازی شده','بازسازی نشده']],['heat','گرمایش','c',HE],['cool','سرمایش','c',CO],['deposit','مبلغ رهن (تومان)','m'],['rent','مبلغ اجاره ماهانه (تومان)','m'],['conv','امکان تبدیل رهن و اجاره','c',['بله','خیر']],['vac','شرایط تخلیه','t'],['oc','شرایط مالک','t'],['vd','تاریخ بازدید','t'],['note','یادداشت','a']],
+req:[['name','نام متقاضی','t'],['phone','شماره تماس','p'],['who','نوع متقاضی','c',['همکار','مشتری گذری','فامیل']],['want','دنبال چه ملکی است','c',PT],['deal','نوع معامله','c',['خرید','رهن و اجاره']],['budget','بودجه (تومان)','m'],['area','متراژ مورد نظر','t'],['region','منطقه / محدوده','t'],['note','یادداشت','a']]};
+const T={sale:'فایل فروش',rent:'رهن و اجاره',req:'متقاضی'},rng=a=>a>=80&&a<=110?'۸۰ تا ۱۱۰':a>110&&a<=160?'۱۱۰ تا ۱۶۰':a>160&&a<=300?'۱۶۰ تا ۳۰۰':'سایر';
+const ttl=d=>d.title||d.name||d.addr||'بدون عنوان';
+const cards=a=>a.length?a.map(r=>{const d=r.d,p=r.ph&&r.ph[0],pr=d.total?fa(d.total)+' تومان':d.rent?'رهن '+fa(d.deposit||0)+' / اجاره '+fa(d.rent):d.budget?fa(d.budget)+' تومان':'';return`<div class="cd" data-open="${r.id}">${p?`<img src="${p}">`:'<i>🏠</i>'}<div><b>${esc(ttl(d))}</b><small>${T[r.k]} · ${esc(d.ptype||d.want||'')}${d.area?' · '+fa(d.area)+' متر':''}</small><small>${esc(d.addr||d.region||'')}</small><em>${pr}</em></div></div>`}).join(''):'<p class="m">موردی پیدا نشد.</p>';
+const find=(a,q)=>{q=dg(q).trim();return q?a.filter(r=>dg(JSON.stringify(r.d)).includes(q)):a};
+function nav(v,x={}){V={v,...x};render();scrollTo(0,0)}
+async function render(){await({home,list,form,det,bk}[V.v])();document.querySelectorAll('#nb b').forEach(b=>b.classList.toggle('on',b.dataset.n==(V.v=='home'||V.v=='bk'?V.v:V.k)))}
+async function home(){A=await all();const d0=new Date().setHours(0,0,0,0),fl=A.filter(r=>r.k!='req'),old=A.length&&(!L.lb||Date.now()-L.lb>864e5);
+app().innerHTML=`<h1>Melk360</h1><p class="m">سلام، مشاور عزیز · ${jd()}</p>${old?'<div class="warn" data-n="bk">امروز هنوز پشتیبان نگرفته‌اید. برای پشتیبان‌گیری لمس کنید.</div>':''}
+<div class="st"><div><b>${fa(fl.filter(r=>r.t>=d0).length)}</b>فایل امروز</div><div><b>${fa(fl.filter(r=>r.t>=d0-6*864e5).length)}</b>۷ روز اخیر</div><div><b>${fa(fl.length)}</b>کل فایل‌ها</div><div><b>${fa(A.length-fl.length)}</b>متقاضی</div></div>
+<div class="bt"><button data-new="sale">＋ ثبت فایل خرید و فروش</button><button data-new="rent">＋ ثبت رهن و اجاره</button><button data-new="req">＋ ثبت متقاضی</button></div>
+<input id="q" data-q placeholder="🔍 جستجوی سریع در همه فایل‌ها…"><div id="res"><h2>آخرین ثبت‌ها</h2>${cards([...A].sort((x,y)=>y.t-x.t).slice(0,5))}</div>`}
+async function list(){A=await all();const k=V.k,r=V.r||'همه',u=V.u||'همه';let a=A.filter(x=>x.k==k).sort((x,y)=>y.t-x.t);
+if(k=='sale'){if(r!='همه')a=a.filter(x=>x.d.range==r);if(u!='همه')a=a.filter(x=>x.d.per==u)}a=find(a,V.q||'');
+const ch=(arr,key,sel)=>`<div class="fl">${arr.map(x=>`<b class="${x==sel?'on':''}" data-f="${key}|${x}">${x}${key=='u'&&x!='همه'?' واحدی':''}</b>`).join('')}</div>`;
+app().innerHTML=`<h2>${k=='req'?'بانک متقاضیان':k=='rent'?'رهن و اجاره':'بانک فایل‌های خرید و فروش'} (${fa(a.length)})</h2><input data-q="1" value="${esc(V.q||'')}" placeholder="🔍 جستجو…">${k=='sale'?'<small>متراژ</small>'+ch(['همه','۸۰ تا ۱۱۰','۱۱۰ تا ۱۶۰','۱۶۰ تا ۳۰۰','سایر'],'r',r)+'<small>واحد در هر طبقه</small>'+ch(['همه','۱','۲','۳'],'u',u):''}<div id="res">${cards(a)}</div><button class="pri" data-new="${k}">＋ ثبت ${T[k]} جدید</button>`}
+const fld=([k,l,t,o])=>{const v=cur[k]??'';let h=`<label class="f">${l}</label>`;
+if(t=='c'){const oth=v&&!o.includes(v);h+=`<div class="ch" data-c="${k}">${[...o,'سایر'].map(x=>`<b class="${x==v||(x=='سایر'&&oth)?'on':''}" data-v="${x}">${x}</b>`).join('')}</div><input class="${oth?'':'hid'}" data-k="${k}" placeholder="بنویسید…" value="${oth?esc(v):''}">`}
+else if(t=='a')h+=`<textarea data-k="${k}" rows="4">${esc(v)}</textarea>`;
+else if(t=='m')h+=`<input data-k="${k}" data-m="1" inputmode="numeric" value="${v?(+v).toLocaleString('en'):''}"><input class="w" data-w="${k}" placeholder="مبلغ به حروف" value="${esc(cur[k+'_w']||'')}">`;
+else h+=`<input data-k="${k}" ${t=='n'||t=='p'?'inputmode="decimal"':''} value="${esc(v)}">`;return h};
+async function form(){const k=V.k;app().innerHTML=`<h2>${V.id?'ویرایش':'ثبت'} ${T[k]}</h2>`+F[k].map(fld).join('')+(k!='req'?`<h3>عکس‌ها</h3><div id="ph"></div><div style="display:flex;gap:8px"><label class="add"><input type="file" accept="image/*" capture="environment" hidden data-pf>📷 دوربین</label><label class="add"><input type="file" accept="image/*" multiple hidden data-pf>🖼 گالری</label></div>`:'')+`<button class="pri" data-save>ثبت نهایی</button><button data-back>انصراف</button>`;ph()}
+const ph=()=>{const e=$('#ph');if(e)e.innerHTML=`<div class="pg">${PH.map((p,i)=>`<div><img src="${p}"><u data-rm="${i}">✕</u></div>`).join('')}</div>`};
+async function shrink(f){const b=await createImageBitmap(f),s=Math.min(1,1280/Math.max(b.width,b.height)),c=document.createElement('canvas');c.width=b.width*s;c.height=b.height*s;c.getContext('2d').drawImage(b,0,0,c.width,c.height);return c.toDataURL('image/jpeg',.72)}
+function setM(k,v){cur[k]=v;const i=$(`[data-k=${k}]`),w=$(`[data-w=${k}]`);if(i)i.value=v?(+v).toLocaleString('en'):'';if(w){w.value=words(+v);cur[k+'_w']=w.value;cur[k+'_wm']=0}}
+function tot(){if(cur.tw)return;const a=+en(cur.area||0),p=+cur.pm||0;if(a&&p)setM('total',String(Math.round(a*p)))}
+document.addEventListener('input',e=>{const t=e.target,k=t.dataset.k;
+if(t.dataset.q!=null){const q=t.value;if(V.v=='home')$('#res').innerHTML=cards(find(A,q));else{V.q=q;$('#res').innerHTML=cards(find(A.filter(x=>x.k==V.k),q))}return}
+if(t.dataset.w){cur[t.dataset.w+'_w']=t.value;cur[t.dataset.w+'_wm']=1;return}
+if(!k)return;
+if(t.dataset.m!=null){const v=en(t.value).replace(/\D/g,'');if(k=='total')cur.tw=1;setM(k,v);if(k=='pm')tot()}
+else{cur[k]=t.value;if(k=='area')tot()}});
+document.addEventListener('change',async e=>{const t=e.target;if(t.dataset.pf!=null){for(const f of t.files)PH.push(await shrink(f));ph();t.value=''}
+if(t.id=='rs'&&t.files[0]){try{const z=await unzip(await t.files[0].arrayBuffer()),m=JSON.parse(new TextDecoder().decode(z['data.json']));for(const r of m){r.ph=await Promise.all((r.ph||[]).map(n=>new Promise(o=>{const fr=new FileReader();fr.onload=()=>o(fr.result);fr.readAsDataURL(new Blob([z[n]],{type:'image/jpeg'}))})));await put(r)}toast(fa(m.length)+' مورد بازیابی شد)'.replace(')',''))}catch(x){alert('فایل پشتیبان معتبر نیست')}}});
+document.addEventListener('click',async e=>{const t=e.target.closest('[data-n],[data-new],[data-open],[data-v],[data-save],[data-edit],[data-del],[data-share],[data-bk],[data-f],[data-rm],[data-back]');if(!t)return;const D=t.dataset;
+if(D.n)return nav(D.n=='home'||D.n=='bk'?D.n:'list',{k:D.n});
+if(D.new){cur={vd:jd()};PH=[];return nav('form',{k:D.new})}
+if(D.open){const r=A.find(x=>x.id==D.open);return nav('det',{id:r.id,k:r.k})}
+if(D.f){const[a,b]=D.f.split('|');V[a]=b;return render()}
+if(D.back)return nav('list',{k:V.k});
+if(D.rm){PH.splice(+D.rm,1);return ph()}
+if(D.v!=null){const w=t.parentNode,k=w.dataset.c,i=w.nextElementSibling,o=D.v=='سایر',was=t.classList.contains('on');w.querySelectorAll('b').forEach(b=>b.classList.remove('on'));i.classList.toggle('hid',!o);if(was&&!o){cur[k]='';return}t.classList.add('on');if(o){i.focus();cur[k]=i.value}else cur[k]=D.v;return}
+if(D.save){const k=V.k,d={...cur};delete d.tw;
+for(const f of F[k].filter(f=>f[2]=='m')){const m=f[0];if(d[m]&&d[m+'_wm']&&(d[m+'_w']||'').trim()!=words(+d[m])&&!confirm('مبلغ «'+f[1]+'» به عدد و حروف یکسان نیست:\n'+fa(d[m])+'\n'+d[m+'_w']+'\nبا همین مقدار ثبت شود؟'))return}
+if(k=='sale'&&d.area)d.range=rng(+en(d.area));
+if(!Object.values(d).some(v=>v&&v!=jd()))return toast('حداقل یک مورد را پر کنید');
+await put({id:V.id||Date.now().toString(36),k,t:V.id?(A.find(x=>x.id==V.id)||{}).t||Date.now():Date.now(),d,ph:PH});toast('ثبت شد ✓');return nav('list',{k})}
+if(D.edit){const r=A.find(x=>x.id==V.id);cur={...r.d};PH=[...(r.ph||[])];return nav('form',{k:r.k,id:r.id})}
+if(D.del){if(confirm('این مورد حذف شود؟')){await del(V.id);nav('list',{k:V.k})}return}
+if(D.share){const r=A.find(x=>x.id==V.id);const s=F[r.k].filter(f=>r.d[f[0]]).map(f=>f[1].split(' (')[0]+': '+(f[2]=='m'?fa(r.d[f[0]])+' تومان ('+(r.d[f[0]+'_w']||'')+')':r.d[f[0]])).join('\n');return navigator.share?navigator.share({text:s}).catch(()=>{}):(navigator.clipboard.writeText(s),toast('کپی شد'))}
+if(D.bk)return backup()});
+const val=(f,d)=>f[2]=='m'?esc(fa(d[f[0]]))+' تومان'+(d[f[0]+'_w']?'<small>'+esc(d[f[0]+'_w'])+'</small>':''):esc(d[f[0]]);
+async function det(){A=await all();const r=A.find(x=>x.id==V.id),d=r.d;app().innerHTML=`<h2>${esc(ttl(d))}</h2><small>${T[r.k]} · ثبت: ${new Date(r.t).toLocaleDateString('fa-IR')}</small>`+(r.ph||[]).map(p=>`<img class="big" src="${p}">`).join('')+`<table>${F[r.k].filter(f=>d[f[0]]).map(f=>`<tr><td>${f[1].split(' (')[0]}</td><td>${val(f,d)}</td></tr>`).join('')}</table><button class="pri" data-edit>ویرایش</button><button data-share>ارسال متن فایل</button><button class="dng" data-del>حذف</button><button data-back>بازگشت</button>`}
+async function bk(){A=await all();app().innerHTML=`<h2>پشتیبان‌گیری</h2><p class="m">آخرین پشتیبان: ${L.lb?new Date(+L.lb).toLocaleString('fa-IR'):'هنوز انجام نشده'}<br>تعداد ثبت‌ها: ${fa(A.length)}</p><button class="pri" data-bk>ساخت پشتیبان و ارسال به درایو / جیمیل</button><p class="m" style="font-size:13px">پس از لمس دکمه، در منوی اشتراک‌گذاری گوشی «Drive» را انتخاب کنید. فایل زیپ شامل مشخصات و عکس‌های همه‌ی فایل‌هاست. پیشنهاد: هر شب یک‌بار.</p><label class="add" style="background:var(--c2)">بازیابی از فایل پشتیبان (zip)<input type="file" accept=".zip" id="rs" hidden></label><p class="cr">Melk360 · طراحی و توسعه: مهندس عظیمی</p>`}
+const crcT=(()=>{let t=[];for(let n=0;n<256;n++){let c=n;for(let k=0;k<8;k++)c=c&1?0xEDB88320^(c>>>1):c>>>1;t[n]=c>>>0}return t})(),crc=b=>{let c=-1;for(let i=0;i<b.length;i++)c=crcT[(c^b[i])&255]^(c>>>8);return(c^-1)>>>0};
+function zip(fs){const P=[],C=[],en8=new TextEncoder();let o=0;for(const f of fs){const n=en8.encode(f.n),c=crc(f.d),l=f.d.length,h=new DataView(new ArrayBuffer(30));h.setUint32(0,0x04034b50,true);h.setUint16(4,20,true);h.setUint16(6,0x800,true);h.setUint16(12,0x21,true);h.setUint32(14,c,true);h.setUint32(18,l,true);h.setUint32(22,l,true);h.setUint16(26,n.length,true);P.push(h.buffer,n,f.d);
+const g=new DataView(new ArrayBuffer(46));g.setUint32(0,0x02014b50,true);g.setUint16(4,20,true);g.setUint16(6,20,true);g.setUint16(8,0x800,true);g.setUint16(14,0x21,true);g.setUint32(16,c,true);g.setUint32(20,l,true);g.setUint32(24,l,true);g.setUint16(28,n.length,true);g.setUint32(42,o,true);C.push(g.buffer,n);o+=30+n.length+l}
+let cs=0;for(const x of C)cs+=x.byteLength;const e=new DataView(new ArrayBuffer(22));e.setUint32(0,0x06054b50,true);e.setUint16(8,fs.length,true);e.setUint16(10,fs.length,true);e.setUint32(12,cs,true);e.setUint32(16,o,true);return new Blob([...P,...C,e.buffer],{type:'application/zip'})}
+async function unzip(buf){const v=new DataView(buf),u=new Uint8Array(buf),o={},dc=new TextDecoder();let p=0;while(p+30<=u.length&&v.getUint32(p,true)==0x04034b50){const sz=v.getUint32(p+18,true),nl=v.getUint16(p+26,true),el=v.getUint16(p+28,true),n=dc.decode(u.subarray(p+30,p+30+nl)),s=p+30+nl+el;o[n]=u.slice(s,s+sz);p=s+sz}return o}
+async function backup(){const a=await all(),fs=[],meta=a.map(r=>({...r,ph:(r.ph||[]).map((s,i)=>{const n='photos/'+r.id+'_'+i+'.jpg';fs.push({n,d:Uint8Array.from(atob(s.split(',')[1]),c=>c.charCodeAt(0))});return n})}));fs.unshift({n:'data.json',d:new TextEncoder().encode(JSON.stringify(meta))});
+const f=new File([zip(fs)],'melk360_backup_'+new Date().toISOString().slice(0,10)+'.zip',{type:'application/zip'});
+if(navigator.canShare&&navigator.canShare({files:[f]})){try{await navigator.share({files:[f],title:'Melk360 backup'});L.lb=Date.now();return bk()}catch(x){if(x.name=='AbortError')return}}
+const l=document.createElement('a');l.href=URL.createObjectURL(f);l.download=f.name;l.click();L.lb=Date.now();toast('فایل پشتیبان ذخیره شد');bk()}
+const b64=b=>btoa(String.fromCharCode(...new Uint8Array(b))),ub=s=>Uint8Array.from(atob(s),c=>c.charCodeAt(0));
+async function lock(){if(!window.PublicKeyCredential||!navigator.credentials)return true;const ch=crypto.getRandomValues(new Uint8Array(32));try{if(!L.cid){const c=await navigator.credentials.create({publicKey:{challenge:ch,rp:{name:'Melk360'},user:{id:ch.slice(0,16),name:'melk360',displayName:'Melk360'},pubKeyCredParams:[{type:'public-key',alg:-7},{type:'public-key',alg:-257}],authenticatorSelection:{authenticatorAttachment:'platform',userVerification:'required'},timeout:60000}});L.cid=b64(c.rawId);return true}
+await navigator.credentials.get({publicKey:{challenge:ch,allowCredentials:[{type:'public-key',id:ub(L.cid)}],userVerification:'required',timeout:60000}});return true}catch(e){return false}}
+async function unlock(){if(await lock())$('#lk').style.display='none'}
+$('#unl').onclick=unlock;
+document.addEventListener('visibilitychange',()=>{if(document.hidden)L.hid=Date.now();else if(Date.now()-(+L.hid||0)>6e4){$('#lk').style.display='flex';unlock()}});
+(async()=>{await idb();navigator.storage?.persist?.();if('serviceWorker'in navigator)navigator.serviceWorker.register('sw.js');render();unlock()})();
+</script></body></html>
