@@ -23,6 +23,26 @@ button,.add{display:block;width:100%;border:0;border-radius:12px;padding:13px;fo
 #nb{position:fixed;bottom:0;left:0;right:0;display:flex;background:#0f1a2e;border-top:1px solid var(--c2);padding:6px 0 calc(6px + env(safe-area-inset-bottom))}#nb b{flex:1;text-align:center;font-weight:400;font-size:12px;color:var(--m)}#nb b.on{color:var(--g)}#nb span{display:block;font-size:20px}
 #lk{position:fixed;inset:0;background:var(--bg);z-index:9;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:30px}#lk button{max-width:300px}
 .cr{text-align:center;color:var(--g);margin-top:30px}#tt{position:fixed;bottom:90px;left:50%;transform:translateX(-50%);background:var(--g);color:#1a1405;padding:8px 18px;border-radius:20px;z-index:10}
+
+body{background:radial-gradient(120% 60% at 100% 0,#1c2f52 0,transparent 60%),radial-gradient(90% 50% at 0 100%,#2a2210 0,transparent 55%),var(--bg);background-attachment:fixed}
+@keyframes up{from{opacity:0;transform:translateY(16px)}}@keyframes sh{to{background-position:-220% 0}}@keyframes tw{50%{opacity:.12}}@keyframes dr{to{stroke-dashoffset:0}}@keyframes fl{50%{transform:translateY(-6px)}}@keyframes pop{40%{transform:translateY(-6px) scale(1.3)}}@keyframes pop2{50%{transform:scale(1.14)}}@keyframes grow{from{transform:scaleX(0)}}@keyframes tin{from{opacity:0;margin-bottom:-24px}}@keyframes gl{50%{opacity:.5}}
+#app>*{animation:up .5s cubic-bezier(.2,.8,.2,1) both}#app>*:nth-child(2){animation-delay:.06s}#app>*:nth-child(3){animation-delay:.12s}#app>*:nth-child(4){animation-delay:.18s}
+.cd{animation:up .5s both;animation-delay:calc(var(--i,0)*70ms);transition:transform .15s;background:linear-gradient(135deg,#17243d,#101b30);border:1px solid #d4a94f26;box-shadow:0 6px 16px #0006}
+button,.ch b{transition:transform .15s,background .2s}button:active,.cd:active,.ch b:active{transform:scale(.95)}
+.pri,.bt button:first-child{background:linear-gradient(110deg,#b98a2e,#f3d98f 45%,#b98a2e);background-size:220% 100%;animation:sh 4s linear infinite;box-shadow:0 8px 22px #d4a94f40}
+.bt button:not(:first-child){border:1px solid #d4a94f40;background:linear-gradient(135deg,#1a2942,#121e33)}
+.hero{position:relative;overflow:hidden;border-radius:24px;padding:22px 18px 84px;margin-bottom:14px;background:linear-gradient(135deg,#1e3358,#101b30);border:1px solid #d4a94f40;box-shadow:0 12px 30px #0008}
+.hero h1,#lk h1{font-size:32px;background:linear-gradient(100deg,#d4a94f 30%,#fff3c9 50%,#d4a94f 70%);background-size:250% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:sh 5s linear infinite}
+.sky{position:absolute;bottom:0;left:0;right:0;width:100%;height:70px}.sky rect{fill:#0a1220}.sky rect.w{fill:#d4a94f;animation:tw 3s ease-in-out infinite}
+.st div{border:1px solid #d4a94f26;background:linear-gradient(135deg,#17243d,#101b30)}.st b{background:linear-gradient(#f3d98f,#d4a94f);-webkit-background-clip:text;background-clip:text;color:transparent}
+.ch b.on{animation:pop2 .3s;box-shadow:0 0 14px #d4a94f66}
+#nb{backdrop-filter:blur(14px);background:#0f1a2ee6}#nb b{position:relative;transition:color .2s}#nb b.on span{animation:pop .45s}#nb b.on::before{content:"";position:absolute;top:-6px;left:28%;right:28%;height:3px;border-radius:3px;background:var(--g);animation:grow .35s}
+#pb{position:sticky;top:0;height:5px;background:var(--c2);border-radius:5px;z-index:5;margin-bottom:6px}#pb i{display:block;height:100%;width:0;border-radius:5px;background:linear-gradient(90deg,#b98a2e,#f3d98f);transition:width .5s}
+input:focus,textarea:focus{box-shadow:0 0 0 4px #d4a94f33}#tt{animation:tin .3s}
+#lk{overflow:hidden;transition:opacity .6s;background:radial-gradient(80% 50% at 50% 35%,#1e3358,var(--bg))}#lk>*{position:relative;z-index:1}
+#lk svg{filter:drop-shadow(0 0 16px #d4a94f90);animation:fl 4s ease-in-out infinite}#lk svg path{stroke-dasharray:140;stroke-dashoffset:140;animation:dr 1.6s .2s ease forwards}
+#lk h1{animation:sh 5s linear infinite,up .8s 1s both}#lk p,#lk button{animation:up .8s 1.3s both}#lk .sky{position:absolute;height:110px;opacity:.55;z-index:0}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style></head><body>
 <div id="app"></div>
 <div id="nb"><b data-n="home"><span>🏠</span>خانه</b><b data-n="sale"><span>🏢</span>فروش</b><b data-n="rent"><span>🔑</span>رهن و اجاره</b><b data-n="req"><span>👥</span>متقاضیان</b><b data-n="bk"><span>☁️</span>پشتیبان</b></div>
@@ -47,13 +67,16 @@ rent:[['ptype','نوع ملک','c',PT],['title','عنوان آگهی','t'],['own
 req:[['name','نام متقاضی','t'],['phone','شماره تماس','p'],['who','نوع متقاضی','c',['همکار','مشتری گذری','فامیل']],['want','دنبال چه ملکی است','c',PT],['deal','نوع معامله','c',['خرید','رهن و اجاره']],['budget','بودجه (تومان)','m'],['area','متراژ مورد نظر','t'],['region','منطقه / محدوده','t'],['note','یادداشت','a']]};
 const T={sale:'فایل فروش',rent:'رهن و اجاره',req:'متقاضی'},rng=a=>a>=80&&a<=110?'۸۰ تا ۱۱۰':a>110&&a<=160?'۱۱۰ تا ۱۶۰':a>160&&a<=300?'۱۶۰ تا ۳۰۰':'سایر';
 const ttl=d=>d.title||d.name||d.addr||'بدون عنوان';
-const cards=a=>a.length?a.map(r=>{const d=r.d,p=r.ph&&r.ph[0],pr=d.total?fa(d.total)+' تومان':d.rent?'رهن '+fa(d.deposit||0)+' / اجاره '+fa(d.rent):d.budget?fa(d.budget)+' تومان':'';return`<div class="cd" data-open="${r.id}">${p?`<img src="${p}">`:'<i>🏠</i>'}<div><b>${esc(ttl(d))}</b><small>${T[r.k]} · ${esc(d.ptype||d.want||'')}${d.area?' · '+fa(d.area)+' متر':''}</small><small>${esc(d.addr||d.region||'')}</small><em>${pr}</em></div></div>`}).join(''):'<p class="m">موردی پیدا نشد.</p>';
+const cards=a=>a.length?a.map((r,i)=>{const d=r.d,p=r.ph&&r.ph[0],pr=d.total?fa(d.total)+' تومان':d.rent?'رهن '+fa(d.deposit||0)+' / اجاره '+fa(d.rent):d.budget?fa(d.budget)+' تومان':'';return`<div class="cd" style="--i:${i}" data-open="${r.id}">${p?`<img src="${p}">`:'<i>🏠</i>'}<div><b>${esc(ttl(d))}</b><small>${T[r.k]} · ${esc(d.ptype||d.want||'')}${d.area?' · '+fa(d.area)+' متر':''}</small><small>${esc(d.addr||d.region||'')}</small><em>${pr}</em></div></div>`}).join(''):'<p class="m">موردی پیدا نشد.</p>';
 const find=(a,q)=>{q=dg(q).trim();return q?a.filter(r=>dg(JSON.stringify(r.d)).includes(q)):a};
+const sky=()=>{let s='',x=0,i=0;while(x<300){const w=18+(i*7%14),hh=22+(i*13%34);s+=`<rect x="${x}" y="${70-hh}" width="${w}" height="${hh}"/>`;for(let j=0;j<hh/9|0;j++)for(let k=0;k<2;k++)s+=`<rect class="w" x="${x+4+k*(w/2-1)}" y="${70-hh+5+j*9}" width="3" height="4" style="animation-delay:${(i*3+j*5+k*7)%30/10}s"/>`;x+=w+3;i++}return`<svg class="sky" viewBox="0 0 300 70" preserveAspectRatio="none">${s}</svg>`};
+function cu(){document.querySelectorAll('[data-cu]').forEach(e=>{const n=+e.dataset.cu,t0=performance.now();(function f(t){const p=Math.min(1,(t-t0)/800);e.textContent=fa(Math.round(n*(1-Math.pow(1-p,3))));if(p<1)requestAnimationFrame(f)})(t0)})}
+const pr=()=>{const f=F[V.k]||[],n=f.filter(x=>cur[x[0]]).length,b=$('#pb i');if(b)b.style.width=Math.round(n/f.length*100)+'%'};
 function nav(v,x={}){V={v,...x};render();scrollTo(0,0)}
-async function render(){await({home,list,form,det,bk}[V.v])();document.querySelectorAll('#nb b').forEach(b=>b.classList.toggle('on',b.dataset.n==(V.v=='home'||V.v=='bk'?V.v:V.k)))}
+async function render(){await({home,list,form,det,bk}[V.v])();cu();document.querySelectorAll('#nb b').forEach(b=>b.classList.toggle('on',b.dataset.n==(V.v=='home'||V.v=='bk'?V.v:V.k)))}
 async function home(){A=await all();const d0=new Date().setHours(0,0,0,0),fl=A.filter(r=>r.k!='req'),old=A.length&&(!L.lb||Date.now()-L.lb>864e5);
-app().innerHTML=`<h1>Melk360</h1><p class="m">سلام، مشاور عزیز · ${jd()}</p>${old?'<div class="warn" data-n="bk">امروز هنوز پشتیبان نگرفته‌اید. برای پشتیبان‌گیری لمس کنید.</div>':''}
-<div class="st"><div><b>${fa(fl.filter(r=>r.t>=d0).length)}</b>فایل امروز</div><div><b>${fa(fl.filter(r=>r.t>=d0-6*864e5).length)}</b>۷ روز اخیر</div><div><b>${fa(fl.length)}</b>کل فایل‌ها</div><div><b>${fa(A.length-fl.length)}</b>متقاضی</div></div>
+app().innerHTML=`<div class="hero"><h1>Melk360</h1><p class="m">سلام، مشاور عزیز · ${jd()}</p><p class="m" style="font-size:12px">بانک جامع فایل‌های املاک</p>${sky()}</div>${old?'<div class="warn" data-n="bk">امروز هنوز پشتیبان نگرفته‌اید. برای پشتیبان‌گیری لمس کنید.</div>':''}
+<div class="st">${[[fl.filter(r=>r.t>=d0).length,'فایل امروز'],[fl.filter(r=>r.t>=d0-6*864e5).length,'۷ روز اخیر'],[fl.length,'کل فایل‌ها'],[A.length-fl.length,'متقاضی']].map(([n,l])=>`<div><b data-cu="${n}">${fa(n)}</b>${l}</div>`).join('')}</div>
 <div class="bt"><button data-new="sale">＋ ثبت فایل خرید و فروش</button><button data-new="rent">＋ ثبت رهن و اجاره</button><button data-new="req">＋ ثبت متقاضی</button></div>
 <input id="q" data-q placeholder="🔍 جستجوی سریع در همه فایل‌ها…"><div id="res"><h2>آخرین ثبت‌ها</h2>${cards([...A].sort((x,y)=>y.t-x.t).slice(0,5))}</div>`}
 async function list(){A=await all();const k=V.k,r=V.r||'همه',u=V.u||'همه';let a=A.filter(x=>x.k==k).sort((x,y)=>y.t-x.t);
@@ -65,7 +88,7 @@ if(t=='c'){const oth=v&&!o.includes(v);h+=`<div class="ch" data-c="${k}">${[...o
 else if(t=='a')h+=`<textarea data-k="${k}" rows="4">${esc(v)}</textarea>`;
 else if(t=='m')h+=`<input data-k="${k}" data-m="1" inputmode="numeric" value="${v?(+v).toLocaleString('en'):''}"><input class="w" data-w="${k}" placeholder="مبلغ به حروف" value="${esc(cur[k+'_w']||'')}">`;
 else h+=`<input data-k="${k}" ${t=='n'||t=='p'?'inputmode="decimal"':''} value="${esc(v)}">`;return h};
-async function form(){const k=V.k;app().innerHTML=`<h2>${V.id?'ویرایش':'ثبت'} ${T[k]}</h2>`+F[k].map(fld).join('')+(k!='req'?`<h3>عکس‌ها</h3><div id="ph"></div><div style="display:flex;gap:8px"><label class="add"><input type="file" accept="image/*" capture="environment" hidden data-pf>📷 دوربین</label><label class="add"><input type="file" accept="image/*" multiple hidden data-pf>🖼 گالری</label></div>`:'')+`<button class="pri" data-save>ثبت نهایی</button><button data-back>انصراف</button>`;ph()}
+async function form(){const k=V.k;app().innerHTML=`<div id="pb"><i></i></div><h2>${V.id?'ویرایش':'ثبت'} ${T[k]}</h2>`+F[k].map(fld).join('')+(k!='req'?`<h3>عکس‌ها</h3><div id="ph"></div><div style="display:flex;gap:8px"><label class="add"><input type="file" accept="image/*" capture="environment" hidden data-pf>📷 دوربین</label><label class="add"><input type="file" accept="image/*" multiple hidden data-pf>🖼 گالری</label></div>`:'')+`<button class="pri" data-save>ثبت نهایی</button><button data-back>انصراف</button>`;ph();pr()}
 const ph=()=>{const e=$('#ph');if(e)e.innerHTML=`<div class="pg">${PH.map((p,i)=>`<div><img src="${p}"><u data-rm="${i}">✕</u></div>`).join('')}</div>`};
 async function shrink(f){const b=await createImageBitmap(f),s=Math.min(1,1280/Math.max(b.width,b.height)),c=document.createElement('canvas');c.width=b.width*s;c.height=b.height*s;c.getContext('2d').drawImage(b,0,0,c.width,c.height);return c.toDataURL('image/jpeg',.72)}
 function setM(k,v){cur[k]=v;const i=$(`[data-k=${k}]`),w=$(`[data-w=${k}]`);if(i)i.value=v?(+v).toLocaleString('en'):'';if(w){w.value=words(+v);cur[k+'_w']=w.value;cur[k+'_wm']=0}}
@@ -75,7 +98,7 @@ if(t.dataset.q!=null){const q=t.value;if(V.v=='home')$('#res').innerHTML=cards(f
 if(t.dataset.w){cur[t.dataset.w+'_w']=t.value;cur[t.dataset.w+'_wm']=1;return}
 if(!k)return;
 if(t.dataset.m!=null){const v=en(t.value).replace(/\D/g,'');if(k=='total')cur.tw=1;setM(k,v);if(k=='pm')tot()}
-else{cur[k]=t.value;if(k=='area')tot()}});
+else{cur[k]=t.value;if(k=='area')tot()}pr()});
 document.addEventListener('change',async e=>{const t=e.target;if(t.dataset.pf!=null){for(const f of t.files)PH.push(await shrink(f));ph();t.value=''}
 if(t.id=='rs'&&t.files[0]){try{const z=await unzip(await t.files[0].arrayBuffer()),m=JSON.parse(new TextDecoder().decode(z['data.json']));for(const r of m){r.ph=await Promise.all((r.ph||[]).map(n=>new Promise(o=>{const fr=new FileReader();fr.onload=()=>o(fr.result);fr.readAsDataURL(new Blob([z[n]],{type:'image/jpeg'}))})));await put(r)}toast(fa(m.length)+' مورد بازیابی شد)'.replace(')',''))}catch(x){alert('فایل پشتیبان معتبر نیست')}}});
 document.addEventListener('click',async e=>{const t=e.target.closest('[data-n],[data-new],[data-open],[data-v],[data-save],[data-edit],[data-del],[data-share],[data-bk],[data-f],[data-rm],[data-back]');if(!t)return;const D=t.dataset;
@@ -83,18 +106,18 @@ if(D.n)return nav(D.n=='home'||D.n=='bk'?D.n:'list',{k:D.n});
 if(D.new){cur={vd:jd()};PH=[];return nav('form',{k:D.new})}
 if(D.open){const r=A.find(x=>x.id==D.open);return nav('det',{id:r.id,k:r.k})}
 if(D.f){const[a,b]=D.f.split('|');V[a]=b;return render()}
-if(D.back)return nav('list',{k:V.k});
+if(D.back!=null)return nav('list',{k:V.k});
 if(D.rm){PH.splice(+D.rm,1);return ph()}
-if(D.v!=null){const w=t.parentNode,k=w.dataset.c,i=w.nextElementSibling,o=D.v=='سایر',was=t.classList.contains('on');w.querySelectorAll('b').forEach(b=>b.classList.remove('on'));i.classList.toggle('hid',!o);if(was&&!o){cur[k]='';return}t.classList.add('on');if(o){i.focus();cur[k]=i.value}else cur[k]=D.v;return}
-if(D.save){const k=V.k,d={...cur};delete d.tw;
+if(D.v!=null){const w=t.parentNode,k=w.dataset.c,i=w.nextElementSibling,o=D.v=='سایر',was=t.classList.contains('on');w.querySelectorAll('b').forEach(b=>b.classList.remove('on'));i.classList.toggle('hid',!o);if(was&&!o){cur[k]='';return}t.classList.add('on');if(o){i.focus();cur[k]=i.value}else cur[k]=D.v;pr();return}
+if(D.save!=null){const k=V.k,d={...cur};delete d.tw;
 for(const f of F[k].filter(f=>f[2]=='m')){const m=f[0];if(d[m]&&d[m+'_wm']&&(d[m+'_w']||'').trim()!=words(+d[m])&&!confirm('مبلغ «'+f[1]+'» به عدد و حروف یکسان نیست:\n'+fa(d[m])+'\n'+d[m+'_w']+'\nبا همین مقدار ثبت شود؟'))return}
 if(k=='sale'&&d.area)d.range=rng(+en(d.area));
 if(!Object.values(d).some(v=>v&&v!=jd()))return toast('حداقل یک مورد را پر کنید');
 await put({id:V.id||Date.now().toString(36),k,t:V.id?(A.find(x=>x.id==V.id)||{}).t||Date.now():Date.now(),d,ph:PH});toast('ثبت شد ✓');return nav('list',{k})}
-if(D.edit){const r=A.find(x=>x.id==V.id);cur={...r.d};PH=[...(r.ph||[])];return nav('form',{k:r.k,id:r.id})}
-if(D.del){if(confirm('این مورد حذف شود؟')){await del(V.id);nav('list',{k:V.k})}return}
-if(D.share){const r=A.find(x=>x.id==V.id);const s=F[r.k].filter(f=>r.d[f[0]]).map(f=>f[1].split(' (')[0]+': '+(f[2]=='m'?fa(r.d[f[0]])+' تومان ('+(r.d[f[0]+'_w']||'')+')':r.d[f[0]])).join('\n');return navigator.share?navigator.share({text:s}).catch(()=>{}):(navigator.clipboard.writeText(s),toast('کپی شد'))}
-if(D.bk)return backup()});
+if(D.edit!=null){const r=A.find(x=>x.id==V.id);cur={...r.d};PH=[...(r.ph||[])];return nav('form',{k:r.k,id:r.id})}
+if(D.del!=null){if(confirm('این مورد حذف شود؟')){await del(V.id);nav('list',{k:V.k})}return}
+if(D.share!=null){const r=A.find(x=>x.id==V.id);const s=F[r.k].filter(f=>r.d[f[0]]).map(f=>f[1].split(' (')[0]+': '+(f[2]=='m'?fa(r.d[f[0]])+' تومان ('+(r.d[f[0]+'_w']||'')+')':r.d[f[0]])).join('\n');return navigator.share?navigator.share({text:s}).catch(()=>{}):(navigator.clipboard.writeText(s),toast('کپی شد'))}
+if(D.bk!=null)return backup()});
 const val=(f,d)=>f[2]=='m'?esc(fa(d[f[0]]))+' تومان'+(d[f[0]+'_w']?'<small>'+esc(d[f[0]+'_w'])+'</small>':''):esc(d[f[0]]);
 async function det(){A=await all();const r=A.find(x=>x.id==V.id),d=r.d;app().innerHTML=`<h2>${esc(ttl(d))}</h2><small>${T[r.k]} · ثبت: ${new Date(r.t).toLocaleDateString('fa-IR')}</small>`+(r.ph||[]).map(p=>`<img class="big" src="${p}">`).join('')+`<table>${F[r.k].filter(f=>d[f[0]]).map(f=>`<tr><td>${f[1].split(' (')[0]}</td><td>${val(f,d)}</td></tr>`).join('')}</table><button class="pri" data-edit>ویرایش</button><button data-share>ارسال متن فایل</button><button class="dng" data-del>حذف</button><button data-back>بازگشت</button>`}
 async function bk(){A=await all();app().innerHTML=`<h2>پشتیبان‌گیری</h2><p class="m">آخرین پشتیبان: ${L.lb?new Date(+L.lb).toLocaleString('fa-IR'):'هنوز انجام نشده'}<br>تعداد ثبت‌ها: ${fa(A.length)}</p><button class="pri" data-bk>ساخت پشتیبان و ارسال به درایو / جیمیل</button><p class="m" style="font-size:13px">پس از لمس دکمه، در منوی اشتراک‌گذاری گوشی «Drive» را انتخاب کنید. فایل زیپ شامل مشخصات و عکس‌های همه‌ی فایل‌هاست. پیشنهاد: هر شب یک‌بار.</p><label class="add" style="background:var(--c2)">بازیابی از فایل پشتیبان (zip)<input type="file" accept=".zip" id="rs" hidden></label><p class="cr">Melk360 · طراحی و توسعه: مهندس عظیمی</p>`}
@@ -110,8 +133,8 @@ const l=document.createElement('a');l.href=URL.createObjectURL(f);l.download=f.n
 const b64=b=>btoa(String.fromCharCode(...new Uint8Array(b))),ub=s=>Uint8Array.from(atob(s),c=>c.charCodeAt(0));
 async function lock(){if(!window.PublicKeyCredential||!navigator.credentials)return true;const ch=crypto.getRandomValues(new Uint8Array(32));try{if(!L.cid){const c=await navigator.credentials.create({publicKey:{challenge:ch,rp:{name:'Melk360'},user:{id:ch.slice(0,16),name:'melk360',displayName:'Melk360'},pubKeyCredParams:[{type:'public-key',alg:-7},{type:'public-key',alg:-257}],authenticatorSelection:{authenticatorAttachment:'platform',userVerification:'required'},timeout:60000}});L.cid=b64(c.rawId);return true}
 await navigator.credentials.get({publicKey:{challenge:ch,allowCredentials:[{type:'public-key',id:ub(L.cid)}],userVerification:'required',timeout:60000}});return true}catch(e){return false}}
-async function unlock(){if(await lock())$('#lk').style.display='none'}
+async function unlock(){if(await lock()){const l=$('#lk');l.style.opacity=0;setTimeout(()=>l.style.display='none',600)}}
 $('#unl').onclick=unlock;
-document.addEventListener('visibilitychange',()=>{if(document.hidden)L.hid=Date.now();else if(Date.now()-(+L.hid||0)>6e4){$('#lk').style.display='flex';unlock()}});
-(async()=>{await idb();navigator.storage?.persist?.();if('serviceWorker'in navigator)navigator.serviceWorker.register('sw.js');render();unlock()})();
+document.addEventListener('visibilitychange',()=>{if(document.hidden)L.hid=Date.now();else if(Date.now()-(+L.hid||0)>6e4){$('#lk').style.cssText='display:flex;opacity:1';unlock()}});
+(async()=>{await idb();navigator.storage?.persist?.();if('serviceWorker'in navigator)navigator.serviceWorker.register('sw.js');$('#lk').insertAdjacentHTML('beforeend',sky());render();setTimeout(unlock,1800)})();
 </script></body></html>
